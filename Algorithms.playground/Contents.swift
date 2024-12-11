@@ -80,6 +80,11 @@ print(filtered) // [Person(name: "Alice", age: 25)]
 
 
 
+
+
+
+// EXERCISES
+// 4.1
 func sumArray(array: [Int]) -> Int {
     if array.count > 1 {
         var mutaArray = array
@@ -89,5 +94,52 @@ func sumArray(array: [Int]) -> Int {
         return array[0]
     }
 }
-
 sumArray(array: [1,2,3,5,10])
+
+//4.2
+func countNumbersIn(_ array: [Int]) -> Int {
+    guard !array.isEmpty else {
+        return 0
+    }
+    return 1 + countNumbersIn(array.dropLast())
+}
+countNumbersIn([1,3,4])
+
+//4.3
+func maxNumberInList(_ array: [Int]) -> Int {
+    guard array.count > 1 else {
+        return array.first ?? 0
+    }
+    let restMax = maxNumberInList(Array(array.dropFirst()))
+    return array.first! > restMax ? array.first! : restMax
+}
+
+maxNumberInList([2,4,6,3,6,1,6,124,123])
+
+//4.4
+func binarySearch(_ array: [Int], target: Int, low: Int, high: Int) -> Int {
+
+    if low > high {
+        return -1
+    }
+    let mid = (low + high) / 2
+    if array[mid] == target {
+        return mid
+    }
+    if target < array[mid] {
+        return binarySearch(array, target: target, low: low, high: mid - 1)
+    } else {
+        return binarySearch(array, target: target, low: mid + 1, high: high)
+    }
+}
+
+//binarySearch(in: [1,2,3,4,6,7,8,10,12], for: 8)
+
+let array = [1,2,3,4,6,7,8,10,12]
+binarySearch(array, target: 8, low: 0, high: array.count - 1)
+
+
+// 4.5 Printing each element 𝑂(𝑛)
+// 4.6 Doubling each element 𝑂(𝑛)
+// 4.7 Doubling the first element 𝑂(1)
+// 4.8 Creating a multiplication table 𝑂(𝑛2)
